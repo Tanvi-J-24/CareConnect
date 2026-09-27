@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  /* Retro Calm Palette */
+  --color-retro-bg: #f4f1ea;
+  --color-retro-text: #2d3748;
+  --color-retro-teal: #5c8d89;
+  --color-retro-teal-dark: #4a7571;
+  --color-retro-peach: #e3a887;
+  --color-retro-yellow: #e2c044;
+  --color-retro-red: #d96c6c;
+  --color-retro-red-dark: #c55353;
+  --color-retro-purple: #8776a3;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-retro-bg);
+  /* Subtle retro ambient background */
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(92, 141, 137, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(227, 168, 135, 0.08) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: var(--color-retro-text);
+}
+
+/* Accessibility: Universal Focus Outline */
+*:focus-visible {
+  outline: 3px solid var(--color-retro-teal);
+  outline-offset: 2px;
+}
+
+/* Glassmorphism utility classes */
+@utility glass-panel {
+  background-color: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+@utility glass-card {
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* High contrast inputs */
+@utility a11y-input {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #94a3b8;
+  color: #0f172a;
+  
+  &:focus {
+    border-color: var(--color-retro-teal);
+    background-color: #ffffff;
+  }
+}
