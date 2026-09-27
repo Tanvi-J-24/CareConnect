@@ -14,6 +14,13 @@ def seed_data():
         db.add_all(facilities)
         db.commit()
 
+    if db.query(models.Patient).count() == 0:
+        patients = [
+            models.Patient(name="Demo Patient 1", age=30, gender="Male", phone="9876543210", blood_group="O+", emergency_contact="9876543211"),
+        ]
+        db.add_all(patients)
+        db.commit()
+
     if db.query(models.User).count() == 0:
         users = [
             models.User(username="patient", password="password", role="patient", patient_id=1),
@@ -42,13 +49,6 @@ def seed_data():
             models.BloodBank(name="Sanjeevani Blood Centre", location="Wakad, Pune", blood_group="O-", available_units=8, availability_status="Available"),
         ]
         db.add_all(blood_banks)
-        db.commit()
-    
-    if db.query(models.Patient).count() == 0:
-        patients = [
-            models.Patient(name="Demo Patient 1", age=30, gender="Male", phone="9876543210", blood_group="O+", emergency_contact="9876543211"),
-        ]
-        db.add_all(patients)
         db.commit()
 
     db.close()

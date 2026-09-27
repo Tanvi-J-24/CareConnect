@@ -6,8 +6,13 @@ import os
 
 from database import engine, Base, get_db
 import models, schemas
+import seed
 
 Base.metadata.create_all(bind=engine)
+try:
+    seed.seed_data()
+except Exception as e:
+    print("Seed data failed or already exists:", e)
 
 app = FastAPI(title="CareConnect API")
 
