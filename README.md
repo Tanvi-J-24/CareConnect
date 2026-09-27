@@ -1,39 +1,203 @@
-# CareConnect MVP
+# CareConnect
 
-One-stop healthcare coordination for appointments, clinic services and emergency assistance.
+### One-stop healthcare coordination for patients and clinics
+
+CareConnect is a two-sided healthcare discovery and coordination platform.
+
+Patients can discover local healthcare facilities, manage appointments, access emergency coordination services, and search demonstration blood availability.
+
+Clinics can create and manage their facility profiles, list their services, become discoverable to patients, and manage incoming appointments and requests from one dashboard.
+
+## Problem
+
+People moving to a new area may struggle to discover nearby healthcare facilities and available services. At the same time, local and newly established clinics may have difficulty becoming discoverable to people in their surrounding area.
+
+Healthcare coordination is also often fragmented across different platforms.
+
+## Solution
+
+CareConnect connects both sides of the healthcare journey:
+
+**Patients**
+
+* Discover healthcare facilities
+* Search clinics and hospitals by location and services
+* View facility information
+* Book appointments
+* Cancel or reschedule appointments
+* Request emergency assistance
+* Search demonstration blood availability
+
+**Clinics**
+
+* Create and manage facility profiles
+* List healthcare services
+* Make their facility discoverable to patients
+* Manage incoming appointments
+* Manage healthcare coordination requests
+
+## Key USP
+
+> **One platform connecting patients looking for healthcare with clinics looking to be discovered.**
+
+CareConnect provides a unified layer for healthcare discovery, appointment management, and essential coordination workflows.
+
+## Technologies Used
+
+* **Frontend:** React, Vite, Tailwind CSS
+* **Backend:** FastAPI, Python
+* **Database:** SQLite, SQLAlchemy
+* **Deployment:** Docker, Google Cloud Run
+* **Version Control:** Git, GitHub
 
 ## Architecture
 
-This project uses a simple monorepo architecture tailored for a fast hackathon MVP:
-- **Backend:** FastAPI, SQLite (served on port 8000 locally).
-- **Frontend:** React, Vite, Tailwind CSS (served on port 5173 locally).
-- **Production:** A single Docker image where FastAPI mounts the built React static files to serve them directly, making it extremely easy to deploy to Google Cloud Run.
+```text
+Patient / Clinic
+       ↓
+React + Vite Frontend
+       ↓
+FastAPI Backend
+       ↓
+SQLAlchemy
+       ↓
+SQLite Database
+       ↓
+Docker Container
+       ↓
+Google Cloud Run
+```
 
-## Local Setup
+## Main Features
 
-### 1. Backend
+### Patient Dashboard
+
+* Healthcare facility discovery
+* Facility and service search
+* Appointment booking
+* Appointment cancellation
+* Appointment rescheduling
+* Emergency request
+* Blood availability search
+* Patient profile
+
+### Clinic Dashboard
+
+* Facility profile management
+* Service management
+* Facility listing
+* Appointment management
+* Patient/request management
+* Healthcare coordination
+
+### Authentication
+
+Separate authentication and dashboard experiences are provided for patients and clinics.
+
+## Running Locally
+
+### Prerequisites
+
+* Python 3.11+
+* Node.js and npm
+* Git
+
+### Backend
+
 ```bash
 cd backend
 python -m venv venv
-venv\Scripts\activate   # On Windows
-pip install -r requirements.txt
-python seed.py          # Seeds demo data
-uvicorn main:app --reload
 ```
 
-### 2. Frontend
+Windows:
+
+```powershell
+.\venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the backend:
+
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+Open:
+
+```text
+http://localhost:8000
+```
+
+### Frontend Development
+
+If running the frontend separately:
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## Cloud Run Deployment
+The production architecture builds the React frontend and serves it through FastAPI.
 
-You can deploy the single container to Google Cloud Run using the following command:
+## Docker
+
+Build:
 
 ```bash
-gcloud run deploy careconnect --source . --platform managed --allow-unauthenticated --region us-central1 --port 8080
+docker build -t careconnect .
 ```
 
-*Disclaimer: This application must NOT provide medical diagnosis, treatment recommendations, prescriptions, medical decision-making or clinical advice. It is strictly an administrative and healthcare-coordination platform.*
+Run:
+
+```bash
+docker run -p 8080:8080 careconnect
+```
+
+Then open:
+
+```text
+http://localhost:8080
+```
+
+## Deployment
+
+CareConnect can be deployed as a single container to Google Cloud Run.
+
+Example:
+
+```bash
+gcloud run deploy careconnect --source . --platform managed --allow-unauthenticated --region asia-south1 --port 8080
+```
+
+## Healthcare Safety
+
+CareConnect is an administrative healthcare coordination prototype.
+
+It does **not** provide:
+
+* Medical diagnosis
+* Treatment recommendations
+* Prescriptions
+* Clinical decision-making
+
+Emergency ambulance and blood availability features use demonstration/simulated data in this prototype. A production system would integrate verified healthcare, ambulance, and blood-bank providers.
+
+## Future Scope
+
+* Verified healthcare provider onboarding
+* Real blood-bank integrations
+* Ambulance service integrations
+* Maps and location-based discovery
+* Notifications
+* PostgreSQL/Cloud SQL for production-scale data
+* More advanced clinic and appointment management
+
+## Project Status
+
+**Hackathon MVP — Functional Prototype**
